@@ -1,0 +1,13 @@
+import "hashes/pedersen/512bit.zok" as hash
+import "ecc/edwardsCompress" as eCompress
+import "ecc/babyjubjubParams" as context
+
+def main(private field[2] preimg, field[2] img) -> field :
+    context = context()
+    field[256] imgComp = eCompress(img, context)
+    field[512] dupPreImg = [...preimg[0], ...preimg[1]]
+    toCompare = hash(dupPreImg)
+    toCompare == imgComp
+
+
+
