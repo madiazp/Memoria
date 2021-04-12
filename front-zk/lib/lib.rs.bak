@@ -1,0 +1,101 @@
+extern crate wasm_bindgen;
+extern crate console_error_panic_hook;
+
+use wasm_bindgen::prelude::*;
+use serde::{Deserialize, Serialize};
+use serde_json::to_string_pretty;
+use bincode::{deserialize, deserialize_from, serialize_into, serialize };
+use zokrates_core::compile::{ compile as compile_core };
+use zokrates_core::ir;
+use zokrates_field::field::{ Field, FieldPrime };
+use zokrates_abi::{ parse_strict, Inputs, Encode, Decode };
+use zokrates_fs_resolver::resolve as fs_resolve;
+use zokrates_core::proof_system::{self, ProofSystem};
+use zokrates_core::typed_absy::{types::Signature, Type};
+
+use std::fs;
+use std::fs::File;
+use std::{env, io};
+use std::path::{Path, PathBuf};
+use std::io::{stdin, BufReader, BufWriter, Read, Write};
+
+pub mod utils;
+
+
+#[derive(Serialize, Deserialize)]
+pub struct ComputationResult {
+    witness: String,
+    output: String,
+}
+#[derive(Serialize,Deserialize)]
+pub struct CompilationResult{
+    #[serde(with = "serde_bytes")]
+    program: Vec<u8>,
+}
+
+#[wasm_bindgen]
+pub fn init_panic_hook() {
+    console_error_panic_hook::set_once();
+}
+
+#[inline]
+fn formatWitness(input: &mut String) -> Result<zokrates_abi::Inputs<zokrates_field::field::FieldPrime>, String> {
+    input.retain(|x| x != '\n');
+    input
+        .split(" ")
+        .map(|x| {
+            FieldPrime::try_from_dec_str(x)
+                .map_err(|_| x.to_string())
+        })
+        .collect::<Result<Vec<_>, _>>()
+        .map(|v| Inputs::Raw(v))
+        
+}
+
+#[wasm_bindgen]
+pub fn compute_witness(p: Vec<u8>, w: &str) -> Result<JsValue, JsValue> {
+    println!("computing witnessssss");
+
+    let out: Vec<u8> = p;
+
+    let program: ir::Prog<FieldPrime> = 
+        bincode::deserialize(&out).map_err(|why| why.to_string()).unwrap();
+
+    let signature = Signature::new()
+    .inputs(vec![Type::FieldElement; program.main.arguments.len()])
+    .outputs(vec![Type::FieldElement; program.main.returns.len()]);
+    println!("input file");
+
+    let mut input = String::from(w);
+    let arguments = formatWitness(&mut input).map_err(|e| e.to_string()).unwrap();
+
+    println!("wit");
+
+    let witness = program
+        .execute(&arguments.encode())
+        .map_err(|e| format!("Execution failed: {}", e)).unwrap();
+        let return_values: serde_json::Value =
+        zokrates_abi::CheckedValues::decode(witness.return_values(), signature.outputs).into();
+
+    let result = ComputationResult {
+        witness: format!("{}", witness),
+        output: to_string_pretty(&return_values).unwrap()
+    };
+
+    Ok(JsValue::from_serde(&result).unwrap())
+}
+
+#[wasm_bindgen]
+pub fn generate_proof(p: Vec<u8>, w: &str, pk: Vec<u8>) -> Result<JsValue,JsValue> {
+
+    let witness = ir::Witness::read(w.as_bytes())
+        .map_err(|why| format!("couldnt load witness: {:?}", why)).unwrap();
+    
+    let out: Vec<u8> = p;
+    let program: ir::Prog<FieldPrime> = 
+        bincode::deserialize(&out).map_err(|why| why.to_string()).unwrap();
+
+    let proof = proof_system::G16 {}.generate_proof(program, witness, pk);
+
+    Ok(JsValue::from_str(proof.as_str()))
+}
