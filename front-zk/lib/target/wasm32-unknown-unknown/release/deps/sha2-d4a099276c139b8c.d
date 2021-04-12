@@ -1,0 +1,12 @@
+/home/matias/Memoria/Demo/front-zk/lib/target/wasm32-unknown-unknown/release/deps/sha2-d4a099276c139b8c.rmeta: /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/lib.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/consts.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha256.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha256_utils.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha512.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha512_utils.rs
+
+/home/matias/Memoria/Demo/front-zk/lib/target/wasm32-unknown-unknown/release/deps/libsha2-d4a099276c139b8c.rlib: /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/lib.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/consts.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha256.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha256_utils.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha512.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha512_utils.rs
+
+/home/matias/Memoria/Demo/front-zk/lib/target/wasm32-unknown-unknown/release/deps/sha2-d4a099276c139b8c.d: /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/lib.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/consts.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha256.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha256_utils.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha512.rs /home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha512_utils.rs
+
+/home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/lib.rs:
+/home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/consts.rs:
+/home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha256.rs:
+/home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha256_utils.rs:
+/home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha512.rs:
+/home/matias/.cargo/registry/src/github.com-1ecc6299db9ec823/sha2-0.8.2/src/sha512_utils.rs:
