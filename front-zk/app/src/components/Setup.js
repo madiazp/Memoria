@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import genId from '../utils/genId';
 import apiccHelper from '../helpers/apicc';
 
+
 const Setup = () => {
   const [voteConstant, setVoteConstant] = useState("");
   const [nbrVoters, setNbrVoters] = useState("");
@@ -18,20 +19,15 @@ const Setup = () => {
     alert(msg);
 
   }
-  const waitRefresh = async () => {
+  const waitRefresh = async (event) => {
+    event.preventDefault();
     setRefresh(true);
     const msg = await apiccHelper.getStadistics();
     setRefresh(false);
     console.log(msg);
-    alert(msg);
+    setResult(msg);
   }
-  return (
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-11">
-            <h5 class="display-4"> Administrar</h5>
-          </div>
-          <div class="col-4 offset-1">
+const Form1 = 
             <form>
               <div class="mb-3">
                 <label class="text-muted"><small>Ingrese constante del sistema </small></label>
@@ -56,8 +52,9 @@ const Setup = () => {
                 </div>
               </div>
             </form>
+const Form2 = 
             <form>
-              <label class="text-muted"><small>Obtener estadísticas</small></label>
+              <label class="text-muted"><small>Obtener Resultados</small></label>
               <div class="row g-2 align-item-center">
                 <div class="col-auto">
                   <button name="submit" type="submit" class="btn btn-info" onClick={waitRefresh}>Refrezcar</button>
@@ -71,10 +68,45 @@ const Setup = () => {
                 </div>
               </div>
             </form>
+
+const resultDisplay = 
+        <div>
+              { 
+               <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col"> Candidato 1 </th>
+                      <th scope="col"> Candidato 2 </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{result.Candidato1 || 0}</td>
+                      <td>{result.Candidato2 || 0}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              }
+       </div>
+
+  return (
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-11">
+            <h5 class="display-4"> Administrar</h5>
           </div>
-          <div class="col-7">
+          <div class="col-4 offset-1">
+            { Form1 }
           </div>
+            <div class="col-5 offset-1">
+              { resultDisplay }
+            </div>
         </div>
+          <div class="row">
+            <div class="col-8 offset-1">
+              { Form2 }
+            </div>
+          </div>
       </div>
   )
 };
