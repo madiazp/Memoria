@@ -7,6 +7,9 @@ const Register = () => {
   const [result, setResult] = useState("");
   return (
       <div class="container">
+        <div class = "row">
+          <h5 class="display-3"> Registro de identidad</h5>
+        </div>
         <div class="row g-3 align-items-center">
             <div class="col-auto">
                 <label for="hasherInput" class = "col-form-label"> Inserte secreto </label>

@@ -29,7 +29,7 @@ const Vote = () => {
          {steps > 4 ?  <li class="list-group-item" >Artefactos generados </li> : null}
          {steps > 5 ?  <li class="list-group-item" >testigos calculados </li> : null}
          {steps > 6 ?  <li class="list-group-item" >Prueba generada </li> : null}
-         {steps < 7 ?  <li class="list-group-item">
+         {steps < 6 ?  <li class="list-group-item">
                          <div class="clearflex">
                            <div class="spinner-border">
                               <span class="visually-hidden"></span>
@@ -42,32 +42,38 @@ const Vote = () => {
     </div>
     )
   };
+  const radCandidates =
+        <div>
+          <div class="custom-control custom-radio custom-control-inline">
+           <input name="radio" id="radio_0" type="radio" onClick={change} checked={candidate==="Candidato1"} class="custom-control-input" value="Candidato1"/>
+           <label for="radio_0" class="custom-control-label muted-text"><small>Candidato 1</small></label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+           <input name="radio" id="radio_1" type="radio" onClick={change} checked={candidate==="Candidato2"} class="custom-control-input" value="Candidato2"/>
+           <label for="radio_1" class="custom-control-label muted-text"><small>Candidato 2</small></label>
+          </div>
+        </div>
   return (
   <div class="container-fluid">
     <div class="row">
     <div class="col-6">
       <div class="col-sm-11 offset-sm-1">
       <p/>
-     <p><h3>  Formulario Votación</h3></p>
+     <p><h5 class="display-4">  Formulario Votación</h5></p>
       </div>
     <form>
       <div class="form-check">
         <div class="col-md-11 offset-md-1">
-        <label class="col-md-3">Seleccione candidato</label>
-          <div class="custom-control custom-radio custom-control-inline">
-           <input name="radio" id="radio_0" type="radio" onClick={change} checked={candidate==="Candidato1"} class="custom-control-input" value="Candidato1"/>
-           <label for="radio_0" class="custom-control-label">Candidato 1</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-           <input name="radio" id="radio_1" type="radio" onClick={change} checked={candidate==="Candidato2"} class="custom-control-input" value="Candidato2"/>
-           <label for="radio_1" class="custom-control-label">Candidato 2</label>
-          </div>
+            <label class="text-muted"><small>Seleccione candidato</small></label>
+        </div>
+        <div class="col-md-11 offset-md-1">
+          { radCandidates }
         </div>
       </div>
         <div class="col-sm-11 offset-sm-1">
           <div class="row">
             <div class="col-5 col-sm-4">
-              <label class="col-lg" >Ingrese su identificador secreto</label>
+              <label class="col-lg text-muted"><small>Ingrese su identificador secreto</small></label>
             </div>
             <div class="col-5 col-sm-6">
               <input class="form-input" id="hasherInput" value={toHash} onChange={evt => setToHash(evt.target.value)} />

@@ -34,10 +34,10 @@ export default () => {
       state.artifacts = artifacts;
       state.pk = keyPair.pk;
       state.isInit = true;
-      return new Response(cons.SUCCESS.PUSH.MSG, cons.SUCCESS.PUSH.CODE, state);
+      return new Response(cons.RESPONSE.INIT.SUCCESS, 200, state);
     } catch (e) {
       console.log(e);
-      return new Response(cons.ERRORS.PUSH.MSG, cons.ERRORS.PUSH.CODE, e);
+      return new Response(cons.RESPONSE.INIT.ERROR, 500, e);
     }
   };
 
@@ -49,12 +49,12 @@ export default () => {
       objRes.artifacts = state.artifacts;
       objRes.pk = state.pk;
       return new Response(
-        cons.SUCCESS.PUSH.MSG,
-        cons.SUCCESS.PUSH.CODE,
+        cons.RESPONSE.ARTIFACTS.SUCCESS,
+        200,
         objRes,
       );
     } catch (e) {
-      return new Response(cons.ERRORS.PUSH.MSG, cons.ERRORS.PUSH.CODE, e);
+      return new Response(cons.RESPONSE.ARTIFACTS.ERROR, 500, e);
     }
   };
 
@@ -63,10 +63,10 @@ export default () => {
       const params = ctx.request.body;
       if (!state.wallet) state.wallet = await fabUtils.initWallet();
       const res = await apicc.addId(params.id, state.wallet);
-      return new Response(cons.SUCCESS.CHECK.MSG, cons.SUCCESS.CHECK.CODE, 'ok');
+      return new Response(cons.RESPONSE.ADD.SUCCESS, 200, 'ok');
     } catch (e) {
       console.log(e);
-      return new Response(cons.ERRORS.CHECK.MSG, cons.ERRORS.CHECK.CODE, e);
+      return new Response(cons.RESPONSE.ADD.ERROR, 500, e);
     }
   };
   proof.vote = async (ctx) => {
@@ -74,10 +74,10 @@ export default () => {
       const params = ctx.request.body;
       if (!state.wallet) state.wallet = await fabUtils.initWallet();
       const res = await apicc.vote(params.proof, params.value, state.wallet);
-      return new Response(cons.SUCCESS.CHECK.MSG, cons.SUCCESS.CHECK.CODE, res);
+      return new Response(cons.RESPONSE.VOTE.SUCCESS, 200, res);
     } catch (e) {
       console.log(e);
-      return new Response(cons.ERRORS.CHECK.MSG, cons.ERRORS.CHECK.CODE, e);
+      return new Response(cons.RESPONSE.VOTE.ERROR, 500, e);
     }
   };
   proof.getResult = async (params) => {
@@ -86,12 +86,12 @@ export default () => {
       const res = await apicc.getResult(state.wallet);
       const objRes = JSON.parse(res.toString());
       return new Response(
-        cons.SUCCESS.PUSH.MSG,
-        cons.SUCCESS.PUSH.CODE,
+        cons.RESPONSE.RESULT.SUCCESS,
+        200,
         objRes,
       );
     } catch (e) {
-      return new Response(cons.ERRORS.PUSH.MSG, cons.ERRORS.PUSH.CODE, e);
+      return new Response(cons.RESPONSE.RESULT.ERROR, 500, e);
     }
   };
   return proof;

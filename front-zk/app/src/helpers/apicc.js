@@ -52,7 +52,11 @@ apicc.sendVote = async (proof, value) => {
         `${CONST.API.url}/vote`,
         req,
     );
-    return res.data.message;
+    console.log(res.data);
+    if (res.data.code === 500) {
+        throw Error(res.data.payload.message);
+    }
+    return res.data.payload;
 };
 
 export default apicc;

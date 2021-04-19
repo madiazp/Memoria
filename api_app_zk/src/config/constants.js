@@ -34,6 +34,28 @@ export default {
     KEY: '/home/matias/Memoria/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk',
     CERT: '/home/matias/Memoria/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem',
   },
+  RESPONSE: {
+    INIT: {
+      SUCCESS: 'Sistema iniciado con éxito',
+      ERROR: 'Algo salio mal inicializando el sistema',
+    },
+    ARTIFACTS: {
+      SUCCESS: 'Artefactos traidos con éxito',
+      ERROR: 'Algo salió mal obteniendo los artefactos',
+    },
+    ADD: {
+      SUCCESS: 'ID registrada con éxito',
+      ERROR: 'Algo salió mal registrando la id',
+    },
+    VOTE: {
+      SUCCESS: 'Voto registrado con éxito',
+      ERROR: 'Algo salió mal registrando el voto',
+    },
+    RESULT: {
+      SUCCESS: 'Resultados obtenidos con éxito',
+      ERROR: 'Algo salió mal obteniendo los resultados',
+    },
+  },
   ERRORS: {
     CHECK: {
       MSG: 'Error retrieving the proof from server',

@@ -5,6 +5,7 @@ import format from '../helpers/format';
 import { initialize } from 'zokrates-js';
 
 const voting = async (toHash, setter, results, vote) => {
+    try {
     console.log(toHash);
     const hasher = await import('witness');
     setter(1);
@@ -41,6 +42,10 @@ const voting = async (toHash, setter, results, vote) => {
     const proofj = JSON.stringify(proof)
     const res = await apicc.sendVote(proofj, vote);
     results(` answer: ${res}`);
+    } catch (err){
+      setter(undefined);
+      alert(err.payload || err);
+    }
 }
 
 export default voting;
