@@ -53,10 +53,10 @@ apicc.sendVote = async (proof, value) => {
         req,
     );
     console.log(res.data);
-    if (res.data.code === 500) {
+    if (res.data.code !== 200) {
         throw Error(res.data.payload.message);
     }
-    return res.data.payload;
+    return res.data.message;
 };
 
 export default apicc;
