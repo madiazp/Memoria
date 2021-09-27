@@ -1,1 +1,4 @@
 voteCC/vendor/
+voteCC2/vendor/
+api_app_zk/dist
+api_app_zk/node_modules

@@ -19,6 +19,4 @@ Develop on [Reactjs](https://reactjs.org/) using [WASM](https://webassembly.org/
 
 ## About the wasm module ##
 
-The wasm module is compiled from a rust implementation of a zk-snark lib. The lib use the ZoKrates wasm lib and the artifacts needed are constructed with a wasm friendly implementation of the [zokrates_zk](https://gitlab.com/jumpitt/blockchain/zokrates_zk) lib. This lib differ from teh zokrates_zk one in the BigInt library implemented, the generation of the merkle tree and some minors syntax implementation.
-
-The goal of this witness lib is to generate the zokrates witness inputs in the correct format while being wasm compatible. The Merkle Tree construction is made by the original zokrates_zk.
+The wasm module is compiled from a rust. The goal of this witness lib is to generate the zokrates witness inputs in the correct format while being wasm compatible.
