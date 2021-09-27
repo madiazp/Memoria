@@ -1,0 +1,26 @@
+[package]
+name = "witness"
+version = "0.1.0"
+authors = ["Your Name <you@email.com>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2.58"# { version = "0.2.58", features = ["serde-serialize"] }
+num-bigint = "0.2"
+num-iter = "0.1"
+sha2 = "0.8.1"
+num-traits = "0.2.11"
+snafu = "0.6.2"
+hex = "0.4"
+data-encoding = "2.2.0"
+num-integer = "0.1.42"
+rand = "0.3.7"
+serde_json = "1.0"
+serde = {version = "1.0.105", features = ["derive"]}
+console_error_panic_hook = "0.1.6"
+regex = "0.2"
+serde_bytes = "0.11"
+bincode = "1.1.4"
+

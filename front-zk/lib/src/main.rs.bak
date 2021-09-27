@@ -1,0 +1,68 @@
+mod field;
+mod babyjubjub;
+mod pedersen_hash;
+mod math_utils;
+mod errors;
+mod eddsa;
+mod artifacts;
+
+use data_encoding::HEXLOWER;
+use pedersen_hash::{new_pedersen_hasher};
+use std::time::{Instant};
+use eddsa::{PrivateKey,PublicKey};
+use sha2::{Sha512, Digest};
+use artifacts::{SignObj,GenMerkleTree, GenWitness};
+
+
+//use hex;
+
+fn main() {
+    //let msg = HEXLOWER.decode(b"01").unwrap();
+    //let msg = String::from("hola");
+    let msg = b"a65";
+    let now = Instant::now();
+    let hasher = new_pedersen_hasher(String::from("test"));
+    //println!("{}",&hasher.hash_bytes(&msg).unwrap().to_string());
+    let xy = match hasher.hash_bytes(msg.to_vec()) {
+        Err(e) => {println!("error {}",e); return },
+        Ok(xy) => xy
+    };
+    println!("{}", now.elapsed().as_millis());
+    println!("{}",xy.to_string());
+    let xyu8: &[u8] = &xy.compress();
+    println!("{}",HEXLOWER.encode(xyu8));
+
+    println!("eddsa\n");
+    let now2 = Instant::now();
+    let pk = match PrivateKey::fromSecret(String::from("holakase")){
+        Ok(pk) => pk,
+        Err(e) => {
+            println!("error {}", e);
+            return
+        }
+    };
+    let msg = Sha512::digest(b"ke pasa");
+    let (r,s,b) = match SignObj(pk, msg.as_slice()){
+        Ok((r,s,b)) => (r,s,b),
+        Err(e) => {
+            println!("error sign {}",e);
+            return
+        }
+    };
+    println!("sign: {}, {}",r.to_string(),s);
+    println!("\n bytes {} \n", b);
+
+    println!("{}", now2.elapsed().as_millis());
+
+    println!("\n\n merkle tree \n");
+    let now3 = Instant::now();
+    let secrets = vec!(String::from("1829964402331"),String::from("1839964401234"),String::from("18499644018283"),String::from("18599644024"),String::from("18699611440"),String::from("114587996440"),String::from("181878996440"),String::from("187489996440"));
+    let mt = GenMerkleTree(secrets,8).unwrap();
+    println!("{}", now3.elapsed().as_millis());
+    let now4 = Instant::now();
+    let meth = GenWitness(String::from("1839964401234"), mt.clone()).unwrap();
+    println!("{}", now4.elapsed().as_millis());
+    println!("merkletree {}",mt.stringify());
+    println!("result \n \n \n {}", meth);
+
+}

@@ -1,0 +1,8 @@
+.env
+.env.backup
+yarn-error.log
+app/node_modules/
+app/package-lock.json
+lib/Cargo.lock
+lib/target/
+lib/.idea
